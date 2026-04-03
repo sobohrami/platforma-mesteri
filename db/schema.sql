@@ -151,7 +151,7 @@ CREATE TABLE stripe_webhook_events (
   id              INTEGER PRIMARY KEY AUTOINCREMENT,
   stripe_event_id TEXT NOT NULL UNIQUE,
   event_type      TEXT NOT NULL,
-  processed_at    TEXT NOT NULL DEFAULT (datetime('now')),
+  processed_at    TEXT DEFAULT (datetime('now')),
   payload_json    TEXT
 );
 
