@@ -1,0 +1,22 @@
+<h1>Abonament</h1>
+<% if (subscription) { %>
+  <p>Plan curent: <strong><%= subscription.name %></strong> (<%= subscription.code %>)</p>
+<% } else { %>
+  <p class="muted">Nu aveți abonament activ listat.</p>
+<% } %>
+<div class="grid-2">
+  <% (plans || []).forEach(p => { %>
+    <div class="card">
+      <h3><%= p.name %></h3>
+      <p>Anunțuri max: <%= p.max_active_listings %></p>
+      <p>Promoții incluse: <%= p.included_promotions %></p>
+      <% if (p.code === 'vip') { %>
+        <form method="post" action="/abonament/checkout">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="btn">Upgrade VIP (Stripe)</button>
+        </form>
+      <% } %>
+    </div>
+  <% }); %>
+</div>
+<p class="muted">Plățile se confirmă prin webhook Stripe.</p>

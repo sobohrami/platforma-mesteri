@@ -1,0 +1,43 @@
+<h1>Panou admin</h1>
+<p><a href="/admin/bannere">Bannere</a> · <a href="/admin/plati">Plăți</a> · <a href="/admin/email">Email</a> · <a href="/admin/categorii">Categorii</a></p>
+
+<h2>Anunțuri în verificare</h2>
+<% (pendingListings || []).forEach(l => { %>
+  <div class="card">
+    <strong><%= l.title %></strong> — <%= l.status %>
+    <form method="post" action="/admin/listings/<%= l.id %>/approve" style="display:inline;">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <button type="submit" class="btn">Aprobă</button>
+    </form>
+    <form method="post" action="/admin/listings/<%= l.id %>/reject" style="display:inline;">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <button type="submit" class="link-btn">Respinge</button>
+    </form>
+  </div>
+<% }); %>
+
+<h2>Proiecte în verificare</h2>
+<% (pendingProjects || []).forEach(p => { %>
+  <div class="card">
+    <strong><%= p.title %></strong>
+    <form method="post" action="/admin/projects/<%= p.id %>/approve" style="display:inline;">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <button type="submit" class="btn">Aprobă</button>
+    </form>
+    <form method="post" action="/admin/projects/<%= p.id %>/reject" style="display:inline;">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <button type="submit" class="link-btn">Respinge</button>
+    </form>
+  </div>
+<% }); %>
+
+<h2>Verificări meșteri</h2>
+<% (verifications || []).forEach(v => { %>
+  <div class="card">
+    <%= v.email %> — <%= v.status %>
+    <form method="post" action="/admin/verification/<%= v.id %>/approve">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <button type="submit" class="btn">Aprobă verificare</button>
+    </form>
+  </div>
+<% }); %>

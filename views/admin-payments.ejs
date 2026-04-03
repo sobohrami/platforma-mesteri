@@ -1,0 +1,14 @@
+<h1>Plăți Stripe</h1>
+<table class="card" style="width:100%;border-collapse:collapse;">
+  <tr><th>ID</th><th>User</th><th>Tip</th><th>Sumă</th><th>Status</th><th>Data</th></tr>
+  <% (payments || []).forEach(p => { %>
+    <tr>
+      <td><%= p.id %></td>
+      <td><%= p.user_id %></td>
+      <td><%= p.payment_type %></td>
+      <td><%= p.amount_cents / 100 %> <%= p.currency %></td>
+      <td><%= p.status %></td>
+      <td><%= p.created_at %></td>
+    </tr>
+  <% }); %>
+</table>

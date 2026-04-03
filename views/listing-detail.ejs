@@ -1,0 +1,31 @@
+<article class="card" itemscope itemtype="https://schema.org/Service">
+  <h1 itemprop="name"><%= listing.title %></h1>
+  <p class="muted">
+    <%= listing.cat_name %> · <%= listing.sub_name %> · <%= listing.city_name %>, <%= listing.county_name %>
+    <% if (listing.is_verified) { %> <span class="badge badge-verified">Verificat</span><% } %>
+  </p>
+  <div itemprop="description"><%= listing.description %></div>
+  <p><strong>Telefon:</strong> <%= listing.contact_phone %></p>
+  <% if (listing.contact_whatsapp) { %><p><strong>WhatsApp:</strong> <%= listing.contact_whatsapp %></p><% } %>
+  <% if (images && images.length) { %>
+    <div class="grid-2">
+      <% images.forEach(img => { %>
+        <img src="<%= img.file_path %>" alt="" style="max-width:100%;border-radius:6px;">
+      <% }); %>
+    </div>
+  <% } %>
+  <% if (coverage && coverage.length) { %>
+    <h2>Zone acoperite</h2>
+    <ul><% coverage.forEach(z => { %><li><%= z.city_name %></li><% }); %></ul>
+  <% } %>
+  <% if (typeof jsonLd !== 'undefined' && jsonLd) { %>
+    <script type="application/ld+json"><%- jsonLd %></script>
+  <% } %>
+</article>
+
+<% if (user && user.role === 'client' && user.id !== listing.user_id) { %>
+  <form action="/anunt/<%= listing.id %>/mesaj" method="post" class="card">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <button type="submit" class="btn">Trimite mesaj meșterului</button>
+  </form>
+<% } %>

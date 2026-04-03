@@ -1,0 +1,8 @@
+<article class="card">
+  <h1><%= post.title %></h1>
+  <p class="muted"><%= post.published_at %></p>
+  <div><%- post.body_html %></div>
+  <% if (typeof jsonLd !== 'undefined' && jsonLd) { %>
+    <script type="application/ld+json"><%- jsonLd %></script>
+  <% } %>
+</article>

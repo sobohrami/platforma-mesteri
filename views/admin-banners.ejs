@@ -1,0 +1,32 @@
+<h1>Bannere</h1>
+<form method="post" class="card">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <label>Titlu</label>
+  <input type="text" name="title" required>
+  <label>Cale imagine (URL sau /uploads/...)</label>
+  <input type="text" name="image_path" required>
+  <label>Link țintă</label>
+  <input type="url" name="target_url" required>
+  <label>Plasament</label>
+  <select name="placement">
+    <option value="home_top">Acasă sus</option>
+    <option value="home_middle">Acasă mijloc</option>
+    <option value="category_sidebar">Lateral categorie</option>
+    <option value="project_sidebar">Lateral proiect</option>
+  </select>
+  <label>Categorie (opțional)</label>
+  <select name="category_id">
+    <option value="">—</option>
+    <% (categories || []).forEach(c => { %><option value="<%= c.id %>"><%= c.name %></option><% }); %>
+  </select>
+  <label>Început</label>
+  <input type="datetime-local" name="starts_at" required>
+  <label>Sfârșit</label>
+  <input type="datetime-local" name="ends_at" required>
+  <p><button type="submit" class="btn">Salvează</button></p>
+</form>
+
+<h2>Existente</h2>
+<% (banners || []).forEach(b => { %>
+  <div class="card"><%= b.title %> — <%= b.placement %></div>
+<% }); %>

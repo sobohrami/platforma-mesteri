@@ -1,0 +1,33 @@
+<% if (typeof introHtml !== 'undefined' && introHtml) { %>
+  <div class="card"><%- introHtml %></div>
+<% } %>
+
+<h1><%= typeof category !== 'undefined' && category ? category.name : 'Meșteri' %></h1>
+
+<% if (typeof categories !== 'undefined' && categories) { %>
+<form method="get" action="/mesteri" class="card" style="margin-bottom:1rem;">
+  <label>Filtru categorie
+    <select name="categorie" onchange="this.form.submit()">
+      <option value="">Toate</option>
+      <% categories.forEach(c => { %>
+        <option value="<%= c.id %>" <%= String(query && query.categorie) === String(c.id) ? 'selected' : '' %>><%= c.name %></option>
+      <% }); %>
+    </select>
+  </label>
+</form>
+<% } %>
+
+<div class="grid-2">
+  <% (listings || []).forEach(l => { %>
+    <article class="card listing-card">
+      <% if (l.is_highlighted) { %><span class="badge">Evidențiat</span><% } %>
+      <% if (l.plan_code === 'vip') { %><span class="badge">VIP</span><% } %>
+      <h3><a href="/anunt/<%= l.slug %>"><%= l.title %></a></h3>
+      <p class="muted"><%= l.cat_name %> · <%= l.sub_name %> · <%= l.city_name %></p>
+      <p><%= (l.description || '').slice(0, 140) %>…</p>
+    </article>
+  <% }); %>
+</div>
+<% if (!listings || !listings.length) { %>
+  <p class="muted">Nu există anunțuri pentru filtrele selectate.</p>
+<% } %>

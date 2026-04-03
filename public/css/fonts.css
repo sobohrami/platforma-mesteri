@@ -1,0 +1,9 @@
+/* Adăugați aici @font-face cu fișiere .woff2 din /fonts/ (fără Google Fonts). */
+/* Exemplu:
+@font-face {
+  font-family: 'LocalSans';
+  src: url('/fonts/LocalSans.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+*/

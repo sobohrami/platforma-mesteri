@@ -1,0 +1,7 @@
+<h1>Categorii</h1>
+<p class="muted">Editare avansată: direct în DB sau migrații viitoare.</p>
+<ul>
+  <% (categories || []).forEach(c => { %>
+    <li><%= c.name %> (<%= c.slug %>)</li>
+  <% }); %>
+</ul>

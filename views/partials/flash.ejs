@@ -1,0 +1,4 @@
+<% if (typeof flash !== 'undefined' && flash) { %>
+  <% if (flash.error) { %><p class="flash flash-error"><%= flash.error %></p><% } %>
+  <% if (flash.success) { %><p class="flash flash-success"><%= flash.success %></p><% } %>
+<% } %>

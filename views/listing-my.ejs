@@ -1,0 +1,30 @@
+<h1>Anunțurile mele</h1>
+<p><a href="/adauga-anunt" class="btn">Adaugă anunț</a></p>
+<% (listings || []).forEach(l => { %>
+  <div class="card">
+    <strong><a href="/anunt/<%= l.slug %>"><%= l.title %></a></strong>
+    <span class="muted"> — <%= l.status %></span>
+  </div>
+<% }); %>
+
+<% if ((listings || []).length && (promotionPackages || []).length) { %>
+  <div class="card section">
+    <h2>Promovare anunț (plată)</h2>
+    <form action="/abonament/promovare" method="post">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <label>Anunț</label>
+      <select name="listing_id" required>
+        <% listings.forEach(l => { %>
+          <option value="<%= l.id %>"><%= l.title %></option>
+        <% }); %>
+      </select>
+      <label>Pachet</label>
+      <select name="promotion_package_id" required>
+        <% promotionPackages.forEach(p => { %>
+          <option value="<%= p.id %>"><%= p.name %> — <%= (p.price_amount/100).toFixed(2) %> RON / <%= p.duration_days %> zile</option>
+        <% }); %>
+      </select>
+      <button type="submit" class="btn">Plătește cu Stripe</button>
+    </form>
+  </div>
+<% } %>

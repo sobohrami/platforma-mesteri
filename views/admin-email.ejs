@@ -1,0 +1,11 @@
+<h1>Trimite email utilizator</h1>
+<form method="post" class="card">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <label>Către</label>
+  <input type="email" name="to" value="<%= typeof to !== 'undefined' ? to : '' %>" required>
+  <label>Subiect</label>
+  <input type="text" name="subject" required>
+  <label>Mesaj</label>
+  <textarea name="body" required rows="8"></textarea>
+  <p><button type="submit" class="btn">Trimite</button></p>
+</form>

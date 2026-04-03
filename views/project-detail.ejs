@@ -1,0 +1,16 @@
+<article class="card">
+  <h1><%= project.title %></h1>
+  <p class="muted"><%= project.cat_name %> · <%= project.sub_name %> · <%= project.city_name %></p>
+  <p><%= project.description %></p>
+  <% if (project.budget_min || project.budget_max) { %>
+    <p>Buget: <%= project.budget_min || '—' %> – <%= project.budget_max || '—' %> RON</p>
+  <% } %>
+  <p>Contact: <%= project.contact_name %></p>
+</article>
+
+<% if (canMsg) { %>
+  <form action="/proiect/<%= project.id %>/mesaj" method="post" class="card">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <button type="submit" class="btn">Contactează clientul</button>
+  </form>
+<% } %>

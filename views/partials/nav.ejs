@@ -1,0 +1,31 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="logo">Meșteri</a>
+    <nav class="nav-main">
+      <a href="/mesteri">Meșteri</a>
+      <a href="/proiecte">Proiecte</a>
+      <a href="/blog">Blog</a>
+      <% if (user) { %>
+        <a href="/mesaje">Mesaje</a>
+        <a href="/notificari">Notificări</a>
+        <% if (user.role === 'craftsman') { %>
+          <a href="/cont/anunturi">Anunțurile mele</a>
+          <a href="/verificare">Verificare</a>
+        <% } %>
+        <% if (user.role === 'client') { %>
+          <a href="/cont/proiecte">Proiectele mele</a>
+        <% } %>
+        <% if (user.role === 'admin') { %>
+          <a href="/admin">Admin</a>
+        <% } %>
+        <form action="/deconectare" method="post" class="inline-form">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="link-btn">Ieșire</button>
+        </form>
+      <% } else { %>
+        <a href="/autentificare">Autentificare</a>
+        <a href="/inregistrare" class="btn btn-small">Înregistrare</a>
+      <% } %>
+    </nav>
+  </div>
+</header>

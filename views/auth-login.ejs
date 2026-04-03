@@ -1,0 +1,10 @@
+<h1>Autentificare</h1>
+<form method="post" action="/autentificare" class="card">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <input type="hidden" name="next" value="<%= typeof nextUrl !== 'undefined' ? nextUrl : '/' %>">
+  <label>Email</label>
+  <input type="email" name="email" required autocomplete="username">
+  <label>Parolă</label>
+  <input type="password" name="password" required autocomplete="current-password">
+  <p><button type="submit" class="btn">Intră</button></p>
+</form>

@@ -1,0 +1,16 @@
+<h1>Notificări</h1>
+<form method="post" action="/notificari/citeste-toate" style="margin-bottom:1rem;">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <button type="submit" class="btn">Marchează toate ca citite</button>
+</form>
+<% (notifications || []).forEach(n => { %>
+  <div class="card">
+    <strong><%= n.title %></strong>
+    <p><%= n.body %></p>
+    <% if (n.link_url) { %><p><a href="<%= n.link_url %>">Deschide</a></p><% } %>
+    <form method="post" action="/notificari/citeste/<%= n.id %>">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <button type="submit" class="link-btn">Marchează citit</button>
+    </form>
+  </div>
+<% }); %>

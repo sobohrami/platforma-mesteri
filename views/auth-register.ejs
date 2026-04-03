@@ -1,0 +1,18 @@
+<h1>Înregistrare</h1>
+<form method="post" class="card">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <label>Email</label>
+  <input type="email" name="email" required autocomplete="email">
+  <label>Parolă</label>
+  <input type="password" name="password" required minlength="8">
+  <label>Confirmă parola</label>
+  <input type="password" name="password2" required>
+  <label>Nume afișat</label>
+  <input type="text" name="display_name">
+  <label>Rol</label>
+  <select name="role" required>
+    <option value="craftsman">Meșter</option>
+    <option value="client">Client</option>
+  </select>
+  <p><button type="submit" class="btn">Creează cont</button></p>
+</form>

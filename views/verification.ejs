@@ -1,0 +1,20 @@
+<section class="container section">
+  <h1>Verificare profil</h1>
+  <% if (verification && verification.is_verified) { %>
+    <p class="success-msg">Profilul este <strong>verificat</strong>.</p>
+  <% } else { %>
+    <p>Badge-ul „Verificat” crește încrederea clienților. După plată, echipa analizează cererea.</p>
+    <% if (!canPay) { %>
+      <p class="muted">Treci la <a href="/abonament">planul VIP</a> pentru a putea solicita verificarea.</p>
+    <% } else if (lastRequest && lastRequest.status === 'pending_review') { %>
+      <p>Cererea ta este în analiză.</p>
+    <% } else if (lastRequest && lastRequest.status === 'pending_payment') { %>
+      <p>Finalizează plata din email sau reîncearcă checkout-ul.</p>
+    <% } else { %>
+      <form action="/verificare/plata" method="post">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button type="submit" class="btn">Plătește verificarea (Stripe)</button>
+      </form>
+    <% } %>
+  <% } %>
+</section>

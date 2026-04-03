@@ -1,0 +1,20 @@
+<section class="hero card">
+  <h1>Găsește meșteri verificați sau publică un proiect</h1>
+  <p class="muted">Platformă SEO-first pentru servicii locale în România. Fără plăți între utilizatori — doar conectare.</p>
+  <p>
+    <a href="/mesteri" class="btn">Caută meșteri</a>
+    <a href="/proiecte" class="btn">Vezi proiecte</a>
+  </p>
+</section>
+
+<% if (typeof banners !== 'undefined' && banners && banners.length) { %>
+  <div class="grid-2">
+    <% banners.forEach(b => { %>
+      <div class="card">
+        <a href="<%= b.target_url %>" target="_blank" rel="noopener">
+          <img src="<%= b.image_path %>" alt="<%= b.title %>" style="max-width:100%;height:auto;border-radius:6px;">
+        </a>
+      </div>
+    <% }); %>
+  </div>
+<% } %>

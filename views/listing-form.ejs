@@ -1,0 +1,37 @@
+<h1>Adaugă anunț</h1>
+<form method="post" action="/adauga-anunt" enctype="multipart/form-data" class="card">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <label>Titlu</label>
+  <input type="text" name="title" required maxlength="200">
+  <label>Descriere</label>
+  <textarea name="description" required minlength="20"></textarea>
+  <label>Categorie</label>
+  <select name="category_id" required id="cat">
+    <% categories.forEach(c => { %><option value="<%= c.id %>"><%= c.name %></option><% }); %>
+  </select>
+  <label>Subcategorie</label>
+  <select name="subcategory_id" required>
+    <% subcategories.forEach(s => { %>
+      <option value="<%= s.id %>" data-cat="<%= s.category_id %>"><%= s.name %></option>
+    <% }); %>
+  </select>
+  <label>Județ principal</label>
+  <select name="primary_county_id" required>
+    <% counties.forEach(co => { %><option value="<%= co.id %>"><%= co.name %></option><% }); %>
+  </select>
+  <label>Oraș principal</label>
+  <select name="primary_city_id" required>
+    <% cities.forEach(ci => { %><option value="<%= ci.id %>"><%= ci.name %></option><% }); %>
+  </select>
+  <label>Telefon contact</label>
+  <input type="text" name="contact_phone" required>
+  <label>WhatsApp (opțional)</label>
+  <input type="text" name="contact_whatsapp">
+  <label>Orașe acoperite (Ctrl+click pentru mai multe)</label>
+  <select name="coverage_city_ids" multiple size="8" style="max-width:100%;">
+    <% cities.forEach(ci => { %><option value="<%= ci.id %>"><%= ci.name %></option><% }); %>
+  </select>
+  <label>Imagini (max 5)</label>
+  <input type="file" name="images" accept="image/*" multiple>
+  <p style="margin-top:1rem;"><button type="submit" class="btn">Publică</button></p>
+</form>

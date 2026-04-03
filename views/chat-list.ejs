@@ -1,0 +1,11 @@
+<h1>Mesaje</h1>
+<% (conversations || []).forEach(c => { %>
+  <div class="card">
+    <a href="/mesaje/<%= c.id %>">Conversație #<%= c.id %></a>
+    <% if (c.unread > 0) { %><span class="badge"><%= c.unread %> necitite</span><% } %>
+    <p class="muted"><%= (c.last_body || '').slice(0, 80) %></p>
+  </div>
+<% }); %>
+<% if (!conversations || !conversations.length) { %>
+  <p class="muted">Nu aveți conversații.</p>
+<% } %>

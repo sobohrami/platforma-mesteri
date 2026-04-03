@@ -1,0 +1,37 @@
+<h1>Adaugă proiect</h1>
+<form method="post" action="/adauga-proiect" class="card">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <label>Titlu</label>
+  <input type="text" name="title" required>
+  <label>Descriere</label>
+  <textarea name="description" required minlength="20"></textarea>
+  <label>Categorie</label>
+  <select name="category_id" required>
+    <% categories.forEach(c => { %><option value="<%= c.id %>"><%= c.name %></option><% }); %>
+  </select>
+  <label>Subcategorie</label>
+  <select name="subcategory_id" required>
+    <% subcategories.forEach(s => { %>
+      <option value="<%= s.id %>"><%= s.name %></option>
+    <% }); %>
+  </select>
+  <label>Județ</label>
+  <select name="county_id" required>
+    <% counties.forEach(co => { %><option value="<%= co.id %>"><%= co.name %></option><% }); %>
+  </select>
+  <label>Oraș</label>
+  <select name="city_id" required>
+    <% cities.forEach(ci => { %><option value="<%= ci.id %>"><%= ci.name %></option><% }); %>
+  </select>
+  <label>Buget minim (RON, opțional)</label>
+  <input type="number" name="budget_min" min="0">
+  <label>Buget maxim (RON, opțional)</label>
+  <input type="number" name="budget_max" min="0">
+  <label>Nume contact</label>
+  <input type="text" name="contact_name" required>
+  <label>Telefon</label>
+  <input type="text" name="contact_phone">
+  <label>Email</label>
+  <input type="email" name="contact_email">
+  <p><button type="submit" class="btn">Publică proiectul</button></p>
+</form>

@@ -1,0 +1,9 @@
+<h1>Proiecte</h1>
+<div class="grid-2">
+  <% (projects || []).forEach(p => { %>
+    <article class="card">
+      <h3><a href="/proiect/<%= p.slug %>"><%= p.title %></a></h3>
+      <p class="muted"><%= p.cat_name %> · <%= p.city_name %></p>
+    </article>
+  <% }); %>
+</div>

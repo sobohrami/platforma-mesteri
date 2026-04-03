@@ -1,0 +1,8 @@
+<h1>Proiectele mele</h1>
+<p><a href="/adauga-proiect" class="btn">Adaugă proiect</a></p>
+<% (projects || []).forEach(p => { %>
+  <div class="card">
+    <a href="/proiect/<%= p.slug %>"><%= p.title %></a>
+    <span class="muted"> — <%= p.status %></span>
+  </div>
+<% }); %>
