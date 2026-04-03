@@ -27,7 +27,7 @@ app.use(compression());
 app.use(cookieParser());
 app.use(
   session({
-    store: new FileStore({ path: './data/sessions', fileExtension: '.json' }),
+    store: new FileStore({ path: config.sessionPath, fileExtension: '.json' }),
     secret: config.sessionSecret,
     resave: false,
     saveUninitialized: false,
@@ -43,7 +43,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Multipart listing form: parse before csurf so _csrf is available (same pattern as login).
-const upload = listingUpload(path.join(__dirname, 'uploads', 'listings'));
+const uploadsDir = config.uploadsPath.startsWith('/')
+  ? config.uploadsPath
+  : path.join(__dirname, config.uploadsPath);
+const upload = listingUpload(path.join(uploadsDir, 'listings'));
 app.use((req, res, next) => {
   if (req.method === 'POST' && req.path === '/adauga-anunt') {
     return upload.array('images', 5)(req, res, next);
@@ -71,7 +74,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(uploadsDir));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(require('./routes/home')(db, config));
@@ -99,18 +102,24 @@ app.use((err, req, res, next) => {
   res.status(500).send('Eroare server');
 });
 
-const server = app.listen(config.port, () => {
-  console.log(`Server http://localhost:${config.port}`);
-});
-server.on('error', (err) => {
-  if (err.code === 'EADDRINUSE') {
-    console.error(
-      `\nPortul ${config.port} este deja folosit (alt npm start / proces Node).\n` +
-        `Găsește PID: netstat -ano | findstr :${config.port}\n` +
-        `Oprește: taskkill /PID <pid> /F\n` +
-        `Sau folosește alt port în .env: PORT=3001\n`
-    );
-    process.exit(1);
-  }
-  throw err;
-});
+// Export the app for Vercel (api/index.js) and for testing.
+// Only bind to a port when run directly (npm start / npm run dev).
+module.exports = app;
+
+if (require.main === module) {
+  const server = app.listen(config.port, () => {
+    console.log(`Server http://localhost:${config.port}`);
+  });
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(
+        `\nPortul ${config.port} este deja folosit (alt npm start / proces Node).\n` +
+          `Găsește PID: netstat -ano | findstr :${config.port}\n` +
+          `Oprește: taskkill /PID <pid> /F\n` +
+          `Sau folosește alt port în .env: PORT=3001\n`
+      );
+      process.exit(1);
+    }
+    throw err;
+  });
+}

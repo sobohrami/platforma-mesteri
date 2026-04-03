@@ -6,6 +6,8 @@ module.exports = {
   baseUrl: (process.env.BASE_URL || 'http://localhost:3000').replace(/\/$/, ''),
   sessionSecret: process.env.SESSION_SECRET || 'dev-only-change-me',
   databasePath: process.env.DATABASE_PATH || './data/app.db',
+  sessionPath: process.env.SESSION_PATH || './data/sessions',
+  uploadsPath: process.env.UPLOADS_PATH || './uploads',
   adminEmail: process.env.ADMIN_EMAIL || 'admin@localhost',
   adminPassword: process.env.ADMIN_PASSWORD || 'admin123',
   smtp: {
