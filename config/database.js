@@ -45,8 +45,9 @@ function openDatabase(dbPathRel) {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
-  const native = new DatabaseSync(dbPath, { enableForeignKeys: true });
+  const native = new DatabaseSync(dbPath);
   const db = wrapDatabase(native);
+  db.pragma('foreign_keys = ON');
   db.pragma('journal_mode = WAL');
   return db;
 }
